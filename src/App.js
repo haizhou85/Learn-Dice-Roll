@@ -1,26 +1,32 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import DiceRoller from './components/DiceRoller'
+import Rolls from './components/Rolls'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component{
+    constructor(props) {
+        super(props)
+        this.state = {
+            rolledNum : 4,
+            nums : []
+        }
+    }
+    roll = () =>{
+        let randomNum = Math.ceil(Math.random() * 6)
+        let newNums = [randomNum ]
+        this.setState({ rolledNum : randomNum, nums : this.state.nums.concat([newNums])})
+    }
+    
+
+    render(){
+        return(
+            <div>
+                <DiceRoller roll = {this.roll} rolledNum = { this.state.rolledNum }/>
+                <Rolls nums = { this.state.nums }/>
+            </div>
+        )
+    }
 }
 
 export default App;
